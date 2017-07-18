@@ -6,7 +6,7 @@
 
     <groupId>org.elasticsearch-datemath</groupId>
     <artifactId>elasticsearch-datemath</artifactId>
-    <version>1.0.0</version>
+    <version>0.1.0</version>
 
     <name>Elasticsearch Datemath</name>
     <description>Utilities for Elasticsearch datemath, written in Java</description>
