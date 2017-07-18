@@ -1,4 +1,4 @@
-package org.elasticsearchdatemath.parser;
+package com.github.omribromberg.elasticsearch.datemath.parser;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;

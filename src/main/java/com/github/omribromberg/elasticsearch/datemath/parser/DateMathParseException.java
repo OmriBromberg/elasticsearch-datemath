@@ -1,4 +1,4 @@
-package org.elasticsearchdatemath.parser;
+package com.github.omribromberg.elasticsearch.datemath.parser;
 
 public class DateMathParseException extends RuntimeException {
     public DateMathParseException(String message) {
