@@ -11,7 +11,7 @@ public class DateMathFormatter {
         final TemporalUnit lowestUnit = getLowestField(pattern).getTemporal().getBaseUnit();
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
-        for (int i = 0; i < lowestUnit.between(start, end); i++) {
+        for (int i = 0; i <= lowestUnit.between(start.truncatedTo(lowestUnit), end.truncatedTo(lowestUnit)); i++) {
             formattedPatterns.add(formatter.format(start.plus(i, lowestUnit)));
         }
 
