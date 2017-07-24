@@ -53,3 +53,10 @@ dateMathBuilder.nowPattern("now");
 // creates a new DateMathParser instance and returns it
 dateMathBuilder.build();
 ```
+## Formatter
+### DateMathFormatter
+#### static Collection\<String\> getAllPatternsBetween(ZonedDateTime start, ZonedDateTime end, String pattern)
+```java
+// gets all the patterns of datetimes between start and end
+DateMathFormatter.getAllPatternsBetween(ZonedDateTime.now().minus(7, ChronoUnit.YEARS), ZonedDateTime.now(), "yyyy-MM-dd HH");
+```
