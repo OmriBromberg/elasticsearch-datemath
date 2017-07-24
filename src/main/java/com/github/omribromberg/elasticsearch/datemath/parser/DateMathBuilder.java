@@ -11,7 +11,7 @@ public class DateMathBuilder {
     private static final String defaultNowPattern = "now";
     private static final ZoneId defaultZone = ZoneOffset.UTC;
     private static final Supplier<ZonedDateTime> defaultNowSupplier = () -> ZonedDateTime.now(defaultZone);
-    private static final String defaultPattern = "YYYY.MM.dd";
+    private static final String defaultPattern = "yyyy.MM.dd";
 
     private final String pattern;
     private final ZoneId zone;
