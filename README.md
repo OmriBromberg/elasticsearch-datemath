@@ -8,15 +8,15 @@ https://www.elastic.co/guide/en/elasticsearch/client/net-api/current/date-math-e
 # Example
 ```java
 DateMathParser dateMathParser = new DateMathBuilder()
-                .pattern("YYYY-MM-dd HH-ss")
-                .zone(DateTimeZone.forID("America/New_York"))
+                .pattern("yyyy-MM-dd HH-ss")
+                .zone(ZoneId.of("America/New_York"))
                 .build();
 dateMathParser.resolveExpression("1998-09-18 16-43||-4d");
 ```
 # API
 ## Parser
 ### DateMathParser
-#### long resolveExpression(String Expression)
+#### ZonedDateTime resolveExpression(String Expression)
 ```java
 // gets the current datetime and subtracts 5 days
 dateMathParser.resolveExpression("now-5d");
@@ -31,17 +31,17 @@ dateMathParser.resolveExpression("2017-07-18||+5m");
 #### DateMathBuilder pattern(String pattern)
 ```java
 // creates a new instance from the current with the new pattern
-dateMathBuilder.pattern("YYYY-MM-dd");
+dateMathBuilder.pattern("yyyy-MM-dd");
 ```
 #### DateMathBuilder zone(DateTimeZone zone)
 ```java
 // creates a new instance from the current with the new zone
-dateMathBuilder.zone(DateTimeZone.forID("America/New_York"));
+dateMathBuilder.zone(ZoneId.of("America/New_York"));
 ```
-#### DateMathBuilder now(LongSupplier nowSupplier)
+#### DateMathBuilder now(Supplier<ZonedDateTime> nowSupplier)
 ```java
 // creates a new instance from the current with the new nowSupplier
-dateMathBuilder.now(() -> DateTime.now().getMillis());
+dateMathBuilder.now(() -> ZonedDateTime.now(ZoneId.of("America/New_York")));
 ```
 #### DateMathBuilder nowPattern(String nowPattern)
 ```java
