@@ -1,20 +1,21 @@
 package com.github.omribromberg.elasticsearch.datemath.parser;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 
-import java.util.function.LongSupplier;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.util.function.Supplier;
 
 
 public class DateMathBuilder {
     private static final String defaultNowPattern = "now";
-    private static final DateTimeZone defaultZone = DateTimeZone.UTC;
-    private static final LongSupplier defaultNowSupplier = () -> DateTime.now().getMillis();
+    private static final ZoneId defaultZone = ZoneOffset.UTC;
+    private static final Supplier<ZonedDateTime> defaultNowSupplier = () -> ZonedDateTime.now(defaultZone);
     private static final String defaultPattern = "YYYY.MM.dd";
 
     private final String pattern;
-    private final DateTimeZone zone;
-    private final LongSupplier nowSupplier;
+    private final ZoneId zone;
+    private final Supplier<ZonedDateTime> nowSupplier;
     private final String nowPattern;
 
     public DateMathBuilder() {
@@ -24,7 +25,7 @@ public class DateMathBuilder {
         nowPattern = defaultNowPattern;
     }
 
-    private DateMathBuilder(String pattern, DateTimeZone zone, LongSupplier nowSupplier, String nowPattern) {
+    private DateMathBuilder(String pattern, ZoneId zone, Supplier<ZonedDateTime> nowSupplier, String nowPattern) {
         this.pattern = pattern;
         this.zone = zone;
         this.nowSupplier = nowSupplier;
@@ -35,11 +36,11 @@ public class DateMathBuilder {
         return new DateMathBuilder(pattern, zone, nowSupplier, nowPattern);
     }
 
-    public DateMathBuilder zone(DateTimeZone zone) {
+    public DateMathBuilder zone(ZoneId zone) {
         return new DateMathBuilder(pattern, zone, nowSupplier, nowPattern);
     }
 
-    public DateMathBuilder now(LongSupplier nowSupplier) {
+    public DateMathBuilder now(Supplier<ZonedDateTime> nowSupplier) {
         return new DateMathBuilder(pattern, zone, nowSupplier, nowPattern);
     }
 
