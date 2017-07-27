@@ -6,10 +6,23 @@ import java.time.temporal.TemporalUnit;
 import java.util.*;
 
 public class DateMathFormatter {
+    private final FieldSymbol lowestField;
+    private final DateTimeFormatter formatter;
+
+    public DateMathFormatter(String pattern) {
+        lowestField = getLowestField(pattern);
+        formatter = DateTimeFormatter.ofPattern(pattern);
+    }
+
     public static Collection<String> getAllPatternsBetween(ZonedDateTime start, ZonedDateTime end, String pattern) {
-        final Collection<String> formattedPatterns = new ArrayList<>();
         final TemporalUnit lowestUnit = getLowestField(pattern).getTemporal().getBaseUnit();
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+
+        return getAllPatternsBetween(start, end, lowestUnit, formatter);
+    }
+
+    private static Collection<String> getAllPatternsBetween(ZonedDateTime start, ZonedDateTime end, TemporalUnit lowestUnit, DateTimeFormatter formatter) {
+        final Collection<String> formattedPatterns = new ArrayList<>();
 
         for (int i = 0; i <= lowestUnit.between(start.truncatedTo(lowestUnit), end.truncatedTo(lowestUnit)); i++) {
             formattedPatterns.add(formatter.format(start.plus(i, lowestUnit)));
@@ -47,6 +60,10 @@ public class DateMathFormatter {
         }
 
         return lowest;
+    }
+
+    public Collection<String> getAllPatternsBetween(ZonedDateTime start, ZonedDateTime end) {
+        return getAllPatternsBetween(start, end, lowestField.getTemporal().getBaseUnit(), formatter);
     }
 
 }
