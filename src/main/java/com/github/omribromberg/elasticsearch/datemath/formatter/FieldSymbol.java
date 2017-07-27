@@ -49,11 +49,11 @@ public enum FieldSymbol {
     private static final Collection<FieldSymbol> SECONDS = Collections.singletonList(s);
 
     private final TemporalField field;
-    private final Supplier<Collection<FieldSymbol>> dependenciesSuplier;
+    private final Supplier<Collection<FieldSymbol>> dependenciesSupplier;
 
-    FieldSymbol(TemporalField field, Supplier<Collection<FieldSymbol>> dependenciesSuplier) {
+    FieldSymbol(TemporalField field, Supplier<Collection<FieldSymbol>> dependenciesSupplier) {
         this.field = field;
-        this.dependenciesSuplier = dependenciesSuplier;
+        this.dependenciesSupplier = dependenciesSupplier;
     }
 
     public static FieldSymbol of(char symbol) {
@@ -97,10 +97,10 @@ public enum FieldSymbol {
     }
 
     public boolean checkDependencies(Collection<FieldSymbol> fields) {
-        if (Objects.isNull(dependenciesSuplier))
+        if (Objects.isNull(dependenciesSupplier))
             return true;
 
-        final Collection<FieldSymbol> dependencies = dependenciesSuplier.get();
+        final Collection<FieldSymbol> dependencies = dependenciesSupplier.get();
 
         if (Objects.isNull(dependencies))
             return true;
