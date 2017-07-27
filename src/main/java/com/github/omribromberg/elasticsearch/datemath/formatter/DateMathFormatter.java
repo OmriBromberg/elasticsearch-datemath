@@ -2,7 +2,7 @@ package com.github.omribromberg.elasticsearch.datemath.formatter;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalUnit;
+import java.time.temporal.*;
 import java.util.*;
 
 public class DateMathFormatter {
@@ -15,16 +15,17 @@ public class DateMathFormatter {
     }
 
     public static Collection<String> getAllPatternsBetween(ZonedDateTime start, ZonedDateTime end, String pattern) {
-        final TemporalUnit lowestUnit = getLowestField(pattern).getTemporal().getBaseUnit();
+        final FieldSymbol lowestField = getLowestField(pattern);
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
-        return getAllPatternsBetween(start, end, lowestUnit, formatter);
+        return getAllPatternsBetween(start, end, lowestField, formatter);
     }
 
-    private static Collection<String> getAllPatternsBetween(ZonedDateTime start, ZonedDateTime end, TemporalUnit lowestUnit, DateTimeFormatter formatter) {
+    private static Collection<String> getAllPatternsBetween(ZonedDateTime start, ZonedDateTime end, FieldSymbol lowestField, DateTimeFormatter formatter) {
         final Collection<String> formattedPatterns = new ArrayList<>();
+        final TemporalUnit lowestUnit = lowestField.getTemporal().getBaseUnit();
 
-        for (int i = 0; i <= lowestUnit.between(start.truncatedTo(lowestUnit), end.truncatedTo(lowestUnit)); i++) {
+        for (int i = 0; i <= lowestUnit.between(getTruncated(start, lowestField), getTruncated(end, lowestField)); i++) {
             formattedPatterns.add(formatter.format(start.plus(i, lowestUnit)));
         }
 
@@ -62,8 +63,36 @@ public class DateMathFormatter {
         return lowest;
     }
 
+    private static ZonedDateTime getTruncated(ZonedDateTime dateTime, FieldSymbol field) {
+        switch (field) {
+            case G:
+                dateTime = dateTime.with(ChronoField.YEAR_OF_ERA, ChronoField.YEAR_OF_ERA.rangeRefinedBy(dateTime).getMaximum());
+                break;
+            case Y:
+            case y:
+            case u:
+                dateTime = dateTime.with(TemporalAdjusters.firstDayOfYear());
+                break;
+            case Q:
+            case q:
+                dateTime = dateTime.with(IsoFields.DAY_OF_QUARTER, IsoFields.DAY_OF_QUARTER.rangeRefinedBy(dateTime).getMinimum());
+                break;
+            case M:
+            case L:
+                dateTime = dateTime.with(TemporalAdjusters.firstDayOfMonth());
+                break;
+            case W:
+            case w:
+                dateTime = dateTime.with(ChronoField.DAY_OF_WEEK, ChronoField.DAY_OF_WEEK.rangeRefinedBy(dateTime).getMinimum());
+                break;
+            default:
+                return dateTime.truncatedTo(field.getTemporal().getBaseUnit());
+        }
+        return dateTime.truncatedTo(ChronoUnit.DAYS);
+    }
+
     public Collection<String> getAllPatternsBetween(ZonedDateTime start, ZonedDateTime end) {
-        return getAllPatternsBetween(start, end, lowestField.getTemporal().getBaseUnit(), formatter);
+        return getAllPatternsBetween(start, end, lowestField, formatter);
     }
 
 }
