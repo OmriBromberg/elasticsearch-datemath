@@ -6,7 +6,7 @@
 
     <groupId>com.github.omribromberg</groupId>
     <artifactId>elasticsearch-datemath</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
 
     <name>Elasticsearch Datemath</name>
     <description>Utilities for Elasticsearch datemath, written in Java</description>
