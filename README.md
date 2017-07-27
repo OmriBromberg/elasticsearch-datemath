@@ -60,3 +60,8 @@ dateMathBuilder.build();
 // gets all the patterns of datetimes between start and end
 DateMathFormatter.getAllPatternsBetween(ZonedDateTime.now().minus(7, ChronoUnit.YEARS), ZonedDateTime.now(), "yyyy-MM-dd HH");
 ```
+#### Collection\<String\> getAllPatternsBetween(ZonedDateTime start, ZonedDateTime end)
+```java
+// gets all the patterns of datetimes between start and end
+dateMathFormatter.getAllPatternsBetween(ZonedDateTime.now().minus(7, ChronoUnit.YEARS), ZonedDateTime.now(), "yyyy-MM-dd HH");
+```
