@@ -1,7 +1,7 @@
 package com.github.omribromberg.elasticsearch.datemath.formatter;
 
-public class DateMathFormatException extends RuntimeException {
-    public DateMathFormatException(String message) {
+class DateMathFormatException extends RuntimeException {
+    DateMathFormatException(String message) {
         super(message);
     }
 }
