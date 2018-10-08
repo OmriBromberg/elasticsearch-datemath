@@ -7,6 +7,7 @@
     <groupId>com.github.omribromberg</groupId>
     <artifactId>elasticsearch-datemath</artifactId>
     <version>0.4.2</version>
+    <packaging>jar</packaging>
 
     <name>Elasticsearch Datemath</name>
     <description>Utilities for Elasticsearch datemath, written in Java</description>
@@ -20,7 +21,16 @@
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <name>Omri Bromberg</name>
+            <email>obbromberg@gmail.com</email>
+        </developer>
+    </developers>
+
     <scm>
+        <connection>scm:git:git://github.com/OmriBromberg/elasticsearch-datemath.git</connection>
+        <developerConnection>scm:git:ssh://github.com:OmriBromberg/elasticsearch-datemath.git</developerConnection>
         <url>https://github.com/OmriBromberg/elasticsearch-datemath</url>
     </scm>
 
