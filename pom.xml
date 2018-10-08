@@ -20,6 +20,10 @@
         </license>
     </licenses>
 
+    <scm>
+        <url>https://github.com/OmriBromberg/elasticsearch-datemath</url>
+    </scm>
+
     <build>
         <plugins>
             <plugin>
