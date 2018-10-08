@@ -112,9 +112,7 @@ public enum FieldSymbol {
         if (matchedDependencies.isEmpty())
             return false;
 
-        return matchedDependencies.stream()
-                .filter(fieldSymbol -> fieldSymbol.checkDependencies(fields))
-                .count() > 0;
+        return matchedDependencies.stream().anyMatch(fieldSymbol -> fieldSymbol.checkDependencies(fields));
     }
 
     public TemporalField getTemporal() {
