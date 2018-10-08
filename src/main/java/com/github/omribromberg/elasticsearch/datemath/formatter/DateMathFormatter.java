@@ -53,11 +53,11 @@ public class DateMathFormatter {
         }
 
         if (Objects.isNull(lowest)) {
-            throw new DateMathFormatException("Pattern '" + pattern + "' does not contain any field symbols");
+            throw new DateMathFormatException(String.format("Pattern '%s' does not contain any field symbols", pattern));
         }
 
         if (!lowest.checkDependencies(fields)) {
-            throw new DateMathFormatException("Field '" + lowest.name() + "' does not have all of his dependencies");
+            throw new DateMathFormatException(String.format("Field '%s' does not have all of his dependencies", lowest.name()));
         }
 
         return lowest;

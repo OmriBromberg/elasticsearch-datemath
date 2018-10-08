@@ -62,12 +62,12 @@ public class DateMathParser {
                 } else if (current == '-') {
                     sign = -1;
                 } else {
-                    throw new DateMathParseException("operator not supported for date math " + mathExpression);
+                    throw new DateMathParseException(String.format("operator not supported for date math %s", mathExpression));
                 }
             }
 
             if (i >= mathExpression.length()) {
-                throw new DateMathParseException("truncated date math " + mathExpression);
+                throw new DateMathParseException(String.format("truncated date math %s", mathExpression));
             }
 
             final int num;
@@ -82,7 +82,7 @@ public class DateMathParser {
                 }
 
                 if (i >= mathExpression.length()) {
-                    throw new DateMathParseException("truncated date math " + mathExpression);
+                    throw new DateMathParseException(String.format("truncated date math %s", mathExpression));
                 }
                 num = Integer.parseInt(mathExpression.substring(numFrom, i));
 
@@ -90,7 +90,7 @@ public class DateMathParser {
 
             if (round) {
                 if (num != 1) {
-                    throw new DateMathParseException("rounding `/` can only be used on single unit types " + mathExpression);
+                    throw new DateMathParseException(String.format("rounding `/` can only be used on single unit types %s", mathExpression));
                 }
             }
 
@@ -98,7 +98,7 @@ public class DateMathParser {
             ChronoUnit mathUnit = mathUnits.get(unit);
 
             if (Objects.isNull(mathUnit)) {
-                throw new DateMathParseException("unit " + unit + " not supported for date math " + mathExpression);
+                throw new DateMathParseException(String.format("unit %s not supported for date math %s", unit, mathExpression));
             }
 
             time = round ? time.truncatedTo(mathUnit) : time.plus(sign * num, mathUnit);
@@ -110,7 +110,7 @@ public class DateMathParser {
         try {
             return getDateTimeWithDefaults(dateTimeExpression);
         } catch (IllegalArgumentException e) {
-            throw new DateMathParseException("failed to parse date field " + dateTimeExpression + " with format " + pattern, e);
+            throw new DateMathParseException(String.format("failed to parse date field %s with format %s", dateTimeExpression, pattern), e);
         }
     }
 
